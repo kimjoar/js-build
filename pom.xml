@@ -1,40 +1,63 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.kjbekkelund</groupId>
-    <artifactId>js-java-setup</artifactId>
+    <artifactId>js-build-intro</artifactId>
     <packaging>war</packaging>
-    <version>0.1.1</version>
-    <name>JavaScript setup for an all-Java environment</name>
+    <version>0.0.1</version>
+    <name>Playing with JavaScript builds</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-        <buildNumber>${maven.build.timestamp}</buildNumber>
+        <buildVersion>${maven.build.timestamp}</buildVersion>
 
-       <requirejs.version>1.0.4</requirejs.version>
-       <jasmine.version>1.2.0.0</jasmine.version>
-       <saga.version>1.3.0</saga.version>
-       <rhino.version>1.7R4</rhino.version>
        <jetty.version>8.1.8.v20121106</jetty.version>  
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+                    <execution>
+                        <id>Build frontend code</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>node</executable>
+                            <arguments>
+                                <argument>make</argument>
+                            </arguments>
+                            <environmentVariables>
+                                <OUTPUT_DIR>./target/bekk-frontend</OUTPUT_DIR>
+                                <VERSION>${buildVersion}</VERSION>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
-                    <packagingExcludes>js/</packagingExcludes>
+                    <warSourceExcludes>**</warSourceExcludes>
                     <webResources>
-                        <resource>
-                            <directory>src/main/webapp</directory>
+                        <webResource>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
                             <includes>
-                                <include>**/*.jsp</include>
+                                <include>web.xml</include>
                             </includes>
+                            <targetPath>WEB-INF</targetPath>
                             <filtering>true</filtering>
+                        </webResource>
+                        <webResource>
+                            <directory>${project.build.directory}/bekk-frontend</directory>
                             <targetPath>.</targetPath>
-                        </resource>
+                        </webResource>
                     </webResources>
                 </configuration>
             </plugin>

@@ -14,9 +14,9 @@ var _ = require('underscore'),
 /*** CONFIG ********/
 
 var version = process.env.VERSION || moment().format('YYYYDDmm');
+    targetDir = process.env.OUTPUT_DIR || path.join('target', 'bekk-frontend');
 
-var targetDir = path.join('target', 'bekk-frontend'),
-    webapp = path.join('src', 'main', 'webapp'),
+var webapp = path.join('src', 'main', 'webapp'),
     config = path.join('src', 'main', 'config'),
 
     indexFile = path.join(webapp, 'index.mustache'),
