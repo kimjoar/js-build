@@ -1,0 +1,30 @@
+{
+    "bitwise": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": false,
+    "immed": true,
+    "indent": 4,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "noempty": false,
+    "nonew": false,
+    "plusplus": true,
+    "quotmark": false,
+    "undef": true,
+    "unused": true,
+    "strict": false,
+    "trailing": true,
+    "maxparams": 15,
+    "maxdepth": 5,
+    "maxstatements": 15,
+    "maxcomplexity": 5,
+    "maxlen": 120,
+    "globals": {
+        "document": true,
+        "define": true,
+        "requirejs": true
+    }
+}
