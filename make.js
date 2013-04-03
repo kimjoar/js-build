@@ -113,15 +113,6 @@ var optimizeImages = function() {
     npmBin('optipng-bin', '-strip all', '-dir ' + to, pngs.join(' '))
 };
 
-
-/*** HELPER FUNCTIONS ********/
-
-var npmBin = function(name) {
-    var bin = path.join('node_modules', '.bin', name);
-    var res = exec(bin + ' ' + _.rest(arguments).join(' '));
-    done(res);
-}
-
 var renderAndWriteMustache = function(from, to, data) {
     var mustache = fs.readFileSync(from).toString();
     var template = hogan.compile(mustache);
@@ -131,6 +122,17 @@ var renderAndWriteMustache = function(from, to, data) {
 
     success();
 };
+
+
+/*** HELPER FUNCTIONS ********/
+
+// helper to call an NPM binary, which resides in node_modules/.bin/name
+// the rest of the arguments are used as space-separated arguments for the binary
+var npmBin = function(name) {
+    var bin = path.join('node_modules', '.bin', name);
+    var res = exec(bin + ' ' + _.rest(arguments).join(' '));
+    done(res);
+}
 
 var createCleanDir = function(dir) {
     if (test('-d', dir)) {
