@@ -7,7 +7,6 @@ var _ = require('underscore'),
     glob = require('glob'),
     path = require('path'),
     zlib = require('zlib'),
-    bytes = require('bytes'),
     hogan = require('hogan.js'),
     moment = require('moment');
 
