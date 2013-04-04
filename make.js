@@ -10,6 +10,8 @@ var _ = require('underscore'),
 
 var webapp = path.join('src', 'main', 'webapp'),
     config = path.join('src', 'main', 'config'),
+
+    rjsConfig = path.join(config, 'buildconfig.js'),
     jshintConfig = path.join(config, 'jshint.json');
 
 
