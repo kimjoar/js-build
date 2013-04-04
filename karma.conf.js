@@ -20,9 +20,20 @@ exclude = [
 ];
 
 
+preprocessors = {
+    '**/webapp/js/**/*.js': 'coverage'
+};
+
+
+coverageReporter = {
+  type : 'html',
+  dir : 'target/coverage/'
+};
+
+
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['progress'];
+reporters = ['progress', 'coverage'];
 
 
 // web server port
