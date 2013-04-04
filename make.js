@@ -130,6 +130,17 @@ var renderAndWriteMustache = function(from, to, data) {
 // the rest of the arguments are used as space-separated arguments for the binary
 var npmBin = function(name) {
     var bin = path.join('node_modules', '.bin', name);
+
+    // call the correct on Windows
+    if (process.platform === 'win32') {
+        bin = bin + '.cmd';
+    }
+
+    if (!test('-e', bin)) {
+        echo('Binary does not exist: ' + bin);
+        exit(1);
+    }
+
     var res = exec(bin + ' ' + _.rest(arguments).join(' '));
     done(res);
 }
