@@ -33,6 +33,7 @@ var webapp = path.join('src', 'main', 'webapp'),
 /*** TARGETS ********/
 
 target.all = function() {
+    target.check();
     target.jshint();
     target.test();
     target.build();
@@ -64,6 +65,10 @@ target.build = function() {
 
     echo();echo();
     success("Build succeeded!");
+};
+
+target.check = function() {
+    failIfOnlySubsetOfTestsAreRunning();
 };
 
 
@@ -121,6 +126,19 @@ var renderAndWriteMustache = function(from, to, data) {
     fs.writeFileSync(to, html);
 
     success();
+};
+
+var failIfOnlySubsetOfTestsAreRunning = function() {
+    var specs = glob.sync(path.join('src', 'test', 'js', '**', '*Spec.js'));
+
+    section('Checking for "ddescribe" and "iit" in tests');
+
+    var res = exec('grep -Eriw "ddescribe|iit" ' + specs.join(' '));
+    if (res.code !== 0) {
+        success();
+    } else {
+        fail();
+    }
 };
 
 
