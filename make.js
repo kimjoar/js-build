@@ -12,7 +12,7 @@ var _ = require('underscore'),
 
 /*** CONFIG ********/
 
-var version = process.env.VERSION || moment().format('YYYYDDmm');
+var version = process.env.VERSION || moment().format('YYYYMMDD');
     targetDir = process.env.OUTPUT_DIR || path.join('target', 'bekk-frontend');
 
 var webapp = path.join('src', 'main', 'webapp'),
