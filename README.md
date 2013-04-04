@@ -1,6 +1,8 @@
 Building a JavaScript application
 =================================
 
+See the accompanying [presentation](http://kjbekkelund.github.com/presentations/js-build/)
+
 The app
 -------
 
