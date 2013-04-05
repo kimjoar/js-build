@@ -22,7 +22,7 @@ Testing
 
 The tests can by run in IntelliJ. First you need to install the [NodeJS
 plugin for IntelliJ](http://plugins.jetbrains.com/plugin/?id=6098), then
-you can follow [the setup here](setup-tests-intellij.png).
+you can follow [the setup here](https://raw.github.com/kjbekkelund/js-build/master/setup-tests-intellij.png).
 
 The build process
 -----------------
