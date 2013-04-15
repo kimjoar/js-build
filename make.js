@@ -10,6 +10,8 @@ var _ = require('underscore'),
     hogan = require('hogan.js'),
     moment = require('moment');
 
+var isWin = (process.platform === 'win32');
+
 /*** CONFIG ********/
 
 var version = process.env.VERSION || moment().format('YYYYMMDD');
@@ -133,8 +135,10 @@ var failIfOnlySubsetOfTestsAreRunning = function() {
 
     section('Checking for "ddescribe" and "iit" in tests');
 
-    var res = exec('grep -Eriw "ddescribe|iit" ' + specs.join(' '));
-    if (res.code !== 0) {
+    var ddescribe = grep("ddescribe", specs);
+    var iit = grep("iit", specs);
+
+    if (ddescribe === '' && iit === '') {
         success();
     } else {
         fail();
@@ -150,7 +154,7 @@ var npmBin = function(name) {
     var bin = path.join('node_modules', '.bin', name);
 
     // call the correct on Windows
-    if (process.platform === 'win32') {
+    if (isWin) {
         bin = bin + '.cmd';
     }
 
@@ -188,12 +192,14 @@ var done = function(res) {
 
 var success = function(text) {
     text = text || 'done';
-    echo('    ✓ '.green + text.green);
+    var s = isWin ? '»' : '✓';
+    echo('    ' + s.green + ' ' + text.green);
 };
 
 var fail = function(text) {
     text = text || 'failed';
-    echo('    ✘ '.red + text.red);
+    var s = isWin ? '×' : '✘';
+    echo('    ' + s.red + ' ' + text.red);
     exit(1);
 };
 
