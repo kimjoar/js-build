@@ -6,6 +6,8 @@ var _ = require('underscore'),
     glob = require('glob'),
     path = require('path');
 
+var isWin = (process.platform === 'win32');
+
 /*** CONFIG ********/
 
 var webapp = path.join('src', 'main', 'webapp'),
@@ -27,7 +29,7 @@ var npmBin = function(name) {
     var bin = path.join('node_modules', '.bin', name);
 
     // call the correct on Windows
-    if (process.platform === 'win32') {
+    if (isWin) {
         bin = bin + '.cmd';
     }
 
@@ -63,14 +65,17 @@ var done = function(res) {
     }
 };
 
+
 var success = function(text) {
     text = text || 'done';
-    echo('    ✓ '.green + text.green);
+    var s = isWin ? '»' : '✓';
+    echo('    ' + s.green + ' ' + text.green);
 };
 
 var fail = function(text) {
     text = text || 'failed';
-    echo('    ✘ '.red + text.red);
+    var s = isWin ? '×' : '✘';
+    echo('    ' + s.red + ' ' + text.red);
     exit(1);
 };
 
